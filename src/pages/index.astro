@@ -4,29 +4,11 @@ import Logo from "../Icons/logo.astro";
 ---
 
 <Layout>
-  <header class="w-full p-6">
-    <nav class="w-full flex flex-row items-center justify-between">
-      <div><a href="/"><Logo /></a></div>
-      <div class="flex items-center gap-5">
-        <button
-          type="button"
-          class="text-slate-50 border-4 border-slate-50 p-2 rounded-md hover:border-violet-300 hover:text-violet-300"
-          >Inicia Sesion</button
-        >
-        <button
-          type="button"
-          class="text-slate-50 border-4 border-slate-50 p-2 rounded-md hover:border-violet-300 hover:text-violet-300"
-          >Registrate</button
-        >
-      </div>
-    </nav>
-  </header>
-
   <section
     class="body-home flex flex-col items-center justify-around py-20 lg:flex-row"
   >
     <div class="mb-16 flex flex-col items-center">
-      <img src="/public/Images/logoname.png" alt="" class="w-96 h-auto" />
+      <img src="/Images/logoname.png" alt="" class="w-96 h-auto" />
       <h2 class="sq_cout_tx text-5xl text-center mt-4 lg:mt-0">
         Cicloparqueaderos
         <br />
@@ -44,7 +26,7 @@ import Logo from "../Icons/logo.astro";
   <section class="flex flex-col p-14 lg:flex-row-reverse">
     <a href="" class="text-center lg:text-right">
       <h1 class="sq_cout_tx flex items-center text-4xl">
-        ¿Qué es <img class="w-60" src="/public/Images/logoname.png" alt="" />?
+        ¿Qué es <img class="w-60" src="/Images/logoname.png" alt="" />?
       </h1>
     </a>
   </section>
@@ -52,7 +34,7 @@ import Logo from "../Icons/logo.astro";
 
 <style>
   .body-home {
-    background-image: url("/public/Images/scp.png");
+    background-image: url("/Images/scp.png");
     background-repeat: no-repeat;
     background-size: 100%;
   }

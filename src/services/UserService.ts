@@ -3,10 +3,13 @@ import type { User } from "../types/UserTypes";
 
 export const createUser = async (userData: User) => {
   try {
-    const { data } = await axios.post("/user", userData);
+    const { data } = await axios.post("http://localhost:3000/api/user", userData);
     return data;
   } catch (error: any) {
-    console.error("Error al crear un usuario:", error);
+    return {
+      status: error.status,
+      message: error
+    }
   }
 };
 
@@ -48,7 +51,7 @@ export const getUser = async (id: string) => {
 
 export const authUser = async (userData: User) => {
   try {
-    const { data } = await axios.post("/login", userData);
+    const { data } = await axios.post("http://localhost:3000/api/login/", userData);
     return data;
   } catch (error: any) {
     console.error("Error al autenticar un usuario:", error);
