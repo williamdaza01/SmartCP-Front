@@ -1,4 +1,5 @@
 ---
+import Logo from '../Icons/logo.astro';
 import '../styles/Layout.css'
 ---
 <!DOCTYPE html>
@@ -9,6 +10,25 @@ import '../styles/Layout.css'
     <title>SmartCP</title>
 </head>
 <body>
+    <header class="w-full p-6">
+        <nav class="w-full flex flex-row items-center justify-between">
+          <div><a href="/"><Logo /></a></div>
+          <div class="flex items-center gap-5">
+            <a
+              type="button"
+              class="text-slate-50 border-4 border-slate-50 p-2 rounded-md hover:border-violet-300 hover:text-violet-300"
+              href="/login"
+              >Inicia Sesion</a
+            >
+            <a
+              type="button"
+              href="/signup"
+              class="text-slate-50 border-4 border-slate-50 p-2 rounded-md hover:border-violet-300 hover:text-violet-300"
+              >Registrate</a
+            >
+          </div>
+        </nav>
+      </header>
     <slot/>
 </body>
 </html>
