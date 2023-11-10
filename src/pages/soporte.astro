@@ -1,0 +1,146 @@
+---
+import LayoutUser from "../layouts/LayoutUser.astro";
+import * as nodemailer from 'nodemailer';
+
+if (Astro.request.method === "POST") {
+
+const data = await Astro.request.formData();
+const email = data.get("email")?.toString() ?? '';
+const message = data.get("message")?.toString() ?? '';
+const name = data.get("name")?.toString() ?? '';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'williamdaza04@gmail.com',
+    pass: 'olba phyh fbot qfni',
+  },
+});
+
+function sendMail(name: string, email: string, message: string) {
+  const mailOptions = {
+    from: email,
+    to: 'williamdaza04@gmail.com',
+    subject: 'Soporte SmartCP',
+    text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
+  };
+
+  transporter.sendMail(mailOptions, (error: any, info: any) => {
+    if (error) {
+      console.error('Error al enviar el correo:', error);
+    } else {
+      console.log('Correo enviado:', info.response);
+    }
+  });
+}
+
+sendMail(name, email, message)
+}
+---
+
+<LayoutUser>
+  <div class="flex flex-col items-center gap-10">
+    <div>
+      <h1 class="bg-sky-400 text-black font-extrabold rounded-full p-3 text-5xl px-10">
+        Soporte
+      </h1>
+    </div>
+    <div class="flex gap-10">
+      <div>
+        <img src="/Images/sup.svg" alt="" />
+      </div><div
+        class="text-white flex flex-col items-stretch justify-center gap-10 text-center"
+      >
+        <h2 class="text-4xl">¿Tienes dudas o inquietudes?</h2>
+        <p class="text-3xl">
+          Si necesitas contactar a alguno de nuestros asesores,elige la opción
+          que mas se ajuste a tus preferencias
+        </p>
+        <div class="flex items-center justify-around">
+          <a href="https://wa.link/bgw65b">
+            <img src="/Images/wpp.svg" alt="" />
+          </a>
+          <a data-modal-toggle="default-modal-form">
+            <img src="/Images/chat.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+  id="default-modal-form"
+  data-modal-show="false"
+  aria-hidden="true"
+  class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center bg-gray-500 bg-opacity-75 transition-opacity"
+>
+  <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+    <div
+      class="bg-white rounded-lg shadow relative border-2 border-white"
+      style="background: #240533"
+    >
+      <!-- Modal header -->
+      <div
+        class="flex flex-row-reverse items-start justify-between p-5 border-b rounded-t dark:border-gray-600"
+      >
+        <button
+          id="close-button"
+          class="flex flex-row-reverse m-2"
+          data-modal-toggle="default-modal-form"
+          type="button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="white"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <div class="w-full flex justify-center">
+          <div
+            class="w-96 h-24 bg-rose-600 rounded-2xl border border-black flex justify-center items-center"
+          >
+            <h2
+              class="text-white text-6xl font-black font-sans whitespace-nowrap"
+            >
+              Contactanos
+            </h2>
+          </div>
+        </div>
+      </div>
+      <!-- Modal body -->
+      <div class="p-6 space-y-6">
+        <form method="POST" class="flex flex-col flex-wrap content-center gap-4">
+          <div class="row flex items-end justify-around gap-28">
+            <div class="col">
+              <div>
+                <div class="flex flex-col">
+                    <label for="name" class="text-white text-2xl font-black font-sans">Nombre</label>
+                    <input type="text" name="name" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-violet-600 border-slate-50 p-2 hover:border-violet-300 leading-tight focus:outline-none focus:shadow-outline mb-3">
+  
+                  <label for="email" class="text-white text-2xl font-black font-sans">Email</label>
+                  <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-violet-600 border-slate-50 p-2 hover:border-violet-300 leading-tight focus:outline-none focus:shadow-outline mb-3">
+
+                  <label for="message" class="text-white text-2xl font-black font-sans">Mensaje</label>
+                  <textarea name="message" id="message" cols="30" rows="10"  class="shadow appearance-none border rounded w-full py-2 px-3 text-violet-600 border-slate-50 p-2 hover:border-violet-300 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="bg-orange-400 rounded-3xl border-4 border-orange-400 text-white font-extrabold text-3xl py-1 w-1/2 self-center"
+            >Enviar</button
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</LayoutUser>
