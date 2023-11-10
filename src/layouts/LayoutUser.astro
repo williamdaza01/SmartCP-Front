@@ -1,0 +1,67 @@
+---
+import Logo from "../Icons/logo.astro";
+import "../styles/Layout.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartCP</title>
+  </head>
+  <body>
+    <header class="w-full p-6">
+      <nav class="w-full flex flex-row items-center justify-between">
+        <div><a href="/"><Logo /></a></div>
+        <div class="flex items-center gap-5">
+          <a
+            type="button"
+            class="bg-sky-400 text-black font-extrabold rounded-full p-3 hover:bg-sky-600"
+            href="/gestion">Gestiona tus Reservas</a
+          >
+          <a
+            type="button"
+            href="/soporte"
+            class="bg-sky-400 text-black font-extrabold rounded-full p-3 hover:bg-sky-600 px-10"
+            >Soporte</a
+          >
+        </div>
+        <div class="flex flex-col">
+            <div
+              data-modal-toggle="default-modal-menu"
+              class="border-2 rounded border-purple-400 flex items-center gap-10 text-2xl px-4 cursor-pointer hover:border-purple-600"
+            >
+              <p class="text-purple-400 font-semibold hover:text-purple-600">
+                Cuenta
+              </p>
+              <img
+                class="inline-block h-11 w-11 rounded-full ring-2 ring-white my-2"
+                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt=""
+              />
+            </div>
+            <div
+              id="default-modal-menu"
+              data-modal-show="false"
+              aria-hidden="true"
+              class="hidden overflow-x-hidden overflow-y-auto h-modal md:h-full md:inset-0"
+            >
+              <div class="w-full px-4 h-full md:h-auto">
+                <div
+                  class="bg-white rounded-lg fixed shadow border-2 border-white flex flex-col gap-10"
+                >
+                <a href="">Perfil</a>
+                <a href="">Perfil</a>
+                <a href="">Configuraciones</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <slot />
+    <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>
+
+  </body>
+</html>

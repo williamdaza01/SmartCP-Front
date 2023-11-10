@@ -1,0 +1,159 @@
+---
+import { createReservation } from "../services/ReservationService";
+import type { Reservation } from "../types/ReservationTypes";
+import type { Station } from "../types/StationTypes";
+
+interface Props {
+  id: string;
+  station: Station;
+  user: string;
+}
+
+const { id, station, user } = Astro.props;
+
+if (Astro.request.method === "POST") {
+  const dataForm = await Astro.request.formData();
+
+  const date_reservation = dataForm.get("date")?.toString();
+  const square = dataForm.get("square")?.toString();
+  const body: Reservation = {
+    id_user: user,
+    id_square: square ?? "",
+    date: new Date(),
+    reservation_date: new Date(date_reservation ?? ""),
+    state: true,
+  };
+  try {
+    const data = await createReservation(body);
+    if (data) {
+      console.log("Reserva creada con exito.");
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: modal.astro:30 ~ error:", error);
+  }
+}
+
+let cont = 0;
+station.squares.map((square) => {
+  if (!square.state) {
+    cont++;
+  }
+});
+---
+
+<button type="button" data-modal-toggle="default-modal">
+  <slot />
+</button>
+
+<div
+  id="default-modal"
+  data-modal-show="false"
+  aria-hidden="true"
+  class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center bg-gray-500 bg-opacity-75 transition-opacity"
+>
+  <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+    <div
+      class="bg-white rounded-lg shadow relative border-2 border-white"
+      style="background: #240533"
+    >
+      <!-- Modal header -->
+      <div
+        class="flex flex-row-reverse items-start justify-between p-5 border-b rounded-t dark:border-gray-600"
+      >
+        <button
+          id="close-button"
+          class="flex flex-row-reverse m-2"
+          data-modal-toggle="default-modal"
+          type="button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="white"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <div class="w-full flex justify-center">
+          <div
+            class="w-96 h-24 bg-rose-600 rounded-2xl border border-black flex justify-center items-center"
+          >
+            <h2
+              class="text-white text-6xl font-black font-sans whitespace-nowrap"
+            >
+              Modal Title
+            </h2>
+          </div>
+        </div>
+      </div>
+      <!-- Modal body -->
+      <div class="p-6 space-y-6">
+        <form method="POST" class="flex flex-col flex-wrap content-center gap-4">
+          <div class="row flex items-end justify-around gap-28">
+            <div class="col flex flex-col">
+              <label
+                for="squares"
+                class="text-white text-2xl font-bold font-sans">Plazas:</label
+              >
+              <select
+                name="square"
+                class="bg-sky-400 text-black font-extrabold rounded-full p-3"
+              >
+                <option value="" selected>Selecciona una plaza</option>
+                {
+                  station.squares.map((square, index) => {
+                    if (!square.state) {
+                      return (
+                        <option id={square._id} value={square._id}>
+                          Plaza #{index + 1}
+                        </option>
+                      );
+                    }
+                  })
+                }
+              </select>
+            </div>
+            <div class="col">
+              <div>
+                <div>
+                  {
+                    cont >= 0 && (
+                      <div class="bg-teal-500 rounded-2xl border border-black text-purple-900 py-5 px-7 flex flex-col items-center">
+                        <h2 class="font-extrabold text-5xl">{cont}</h2>
+                        <p class="font-bold text-white">Disponibles</p>
+                      </div>
+                    )
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="date" class="text-white text-2xl font-bold font-sans"
+              >Fecha y hora:</label
+            >
+            <input
+              type="datetime-local"
+              name="date"
+              id="date"
+              class="bg-sky-400 text-black font-extrabold rounded-full p-3"
+            />
+          </div>
+          <button
+            type="submit"
+            class="bg-orange-400 rounded-3xl border-4 border-orange-400 text-white font-extrabold text-3xl py-1 w-1/2 self-center"
+            >Reservar</button
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>

@@ -1,0 +1,33 @@
+---
+import type { Station } from "../types/StationTypes";
+import BtnSquare from "./btnSquare.astro";
+
+interface Props {
+  stations: Station[];
+}
+
+const { stations } = Astro.props;
+---
+
+<div class="flex flex-col gap-4 items-center m-8 p-4 bg-orange-400 rounded-3xl border-4 border-fuchsia-700">
+  <div class="p-3 px-4 bg-teal-500 rounded-3xl border-2 border-slate-900 whitespace-nowrap">
+    <div
+      class="text-purple-900 font-bold font-['Jomhuria'] text-4xl"
+    >
+      Plazas Disponibles
+    </div>
+  </div>
+  <div class="p-2 px-6 bg-fuchsia-700 rounded-xl border border-black"
+    ><p class=" text-white text-base font-medium font-['Jomhuria']">
+      Haga clic en cualquier plaza o ubicación para reservar
+    </p></div
+  >
+  <div>
+    {
+      stations.map((station: Station) => {
+        return <BtnSquare station={station} />;
+      })
+    }
+  </div>
+
+</div>
