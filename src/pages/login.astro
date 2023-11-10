@@ -1,5 +1,4 @@
 ---
-import Logo from "../Icons/logo.astro";
 import Layout from "../layouts/Layout.astro";
 import { authUser } from "../services/UserService";
 import type { User } from "../types/UserTypes";
@@ -29,7 +28,8 @@ if (Astro.request.method === "POST") {
     } else {
       const data = await authUser(user);
       if (data.isLogged) {
-        Astro.redirect("/");
+        Astro.cookies.set('id_user', user.email ?? '')
+        return Astro.redirect("/home");
       } else {
         throw new Error(data.error);
       }

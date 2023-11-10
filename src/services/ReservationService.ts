@@ -3,10 +3,10 @@ import type { Reservation } from "../types/ReservationTypes";
 
 export const createReservation = async (reservationData: Reservation) => {
   try {
-    const { data } = await axios.post("/reservation", reservationData);
+    const { data } = await axios.post("http://localhost:3000/api/reservation", reservationData);
     return data;
   } catch (error) {
-    console.error("Error al crear una reserva:", error);
+    //console.error("Error al crear una reserva:", error);
   }
 };
 

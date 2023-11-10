@@ -39,7 +39,7 @@ export const getStation = async (id: string) => {
 
 export const getStations = async () => {
   try {
-    const { data } = await axios.get("/stations");
+    const { data } = await axios.get("http://localhost:3000/api/stations");
     return data;
   } catch (error) {
     console.error("Error al obtener las estaciones:", error);

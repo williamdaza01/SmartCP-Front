@@ -6,6 +6,7 @@ export const createUser = async (userData: User) => {
     const { data } = await axios.post("http://localhost:3000/api/user", userData);
     return data;
   } catch (error: any) {
+    console.log("🚀 ~ file: UserService.ts:10 ~ createUser ~ error:", error)
     return {
       status: error.status,
       message: error
@@ -57,3 +58,12 @@ export const authUser = async (userData: User) => {
     console.error("Error al autenticar un usuario:", error);
   }
 };
+
+export const getUserByEmail = async (email: string) => {
+  try {
+    const { data } = await axios.get("http://localhost:3000/api/userbyemail/"+email);
+    return data;
+  } catch (error) {
+    
+  }
+}

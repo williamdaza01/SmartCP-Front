@@ -12,6 +12,7 @@ type FormErrors = {
   typedoc: string;
   numdoc: string;
   age: string;
+  phone: string
 };
 
 const errors: FormErrors = {
@@ -23,6 +24,7 @@ const errors: FormErrors = {
   typedoc: "",
   numdoc: "",
   age: "",
+  phone: ""
 };
 
 const validateField = (
@@ -48,6 +50,7 @@ if (Astro.request.method === "POST") {
     const tipo = data.get("tipo");
     const numdoc = data.get("numdoc");
     const age = data.get("age");
+    const phone = data.get("phone")
 
     validateField(email, "email", "Email is not valid.");
     validateField(name, "name", "Debes ingresar tu nombre");
@@ -82,14 +85,18 @@ if (Astro.request.method === "POST") {
       type: tipo ? tipo?.toString() : "",
       doc: numdoc ? numdoc?.toString() : "",
       age: new Date(age?.toString() ?? ''),
+      phone:  phone ? phone?.toString() : "",
     };
     if (hasErrors) {
       hasErrors = false;
       return hasErrors
+    } else{
+      Astro.redirect('/login')
+      await createUser(user);
     }
-    await createUser(user);
     
   } catch (error: any) {
+    console.log("🚀 ~ file: signup.astro:93 ~ error:", error)
     return error
   }
 }
@@ -199,6 +206,17 @@ if (Astro.request.method === "POST") {
             class="shadow appearance-none mb-6 border rounded w-full py-2 px-3 text-violet-600 border-slate-50 p-2 hover:border-violet-300 leading-tight focus:outline-none focus:shadow-outline {{ errors.email ? 'border-red-500' : '' }}"
             id="email"
             placeholder="Email"
+          />
+          <label class="block text-white text-sm font-bold mb-2" for="phone"
+            >Celular</label
+          >
+          <input
+            type="tel"
+            name="phone"
+            required
+            class="shadow appearance-none mb-6 border rounded w-full py-2 px-3 text-violet-600 border-slate-50 p-2 hover:border-violet-300 leading-tight focus:outline-none focus:shadow-outline {{ errors.phone ? 'border-red-500' : '' }}"
+            id="phone"
+            placeholder="Celular"
           />
           <!-- Mostrar errores de email si es necesario -->
 

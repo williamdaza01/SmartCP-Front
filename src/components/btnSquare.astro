@@ -1,0 +1,43 @@
+---
+import type { Station } from "../types/StationTypes";
+import Modal from "../components/Modal.astro";
+import { getUserByEmail } from "../services/UserService";
+
+interface Props {
+  station: Station;
+}
+
+const { station } = Astro.props;
+
+const user = await getUserByEmail(Astro.cookies.get('id_user')?.value ?? '')
+
+let iduser = '';
+if(user){
+  iduser = user._id;
+}
+let cont = 0;
+station.squares.map((square) => {
+  if (!square.state) {
+    cont++;
+  }
+});
+---
+
+<div class="flex items-center gap-4">
+  <Modal id="dialog" station={station} user={iduser}>
+    <div
+      class="p-3 bg-rose-600 rounded-2xl border border-black"     
+    >
+      <p
+        class="text-white text-2xl font-['Inter'] whitespace-nowrap font-semibold"
+      >
+        Estacion {station.name_station}
+      </p>
+    </div>
+  </Modal>
+  <div class="p-3 px-4 bg-sky-500 rounded-2xl border border-black">
+    <h3 class="text-purple-900 text-2xl font-semibold font-['Inter']">
+      {cont}
+    </h3>
+  </div>
+</div>
