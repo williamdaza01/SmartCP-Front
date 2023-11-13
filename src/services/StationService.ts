@@ -45,3 +45,12 @@ export const getStations = async () => {
     console.error("Error al obtener las estaciones:", error);
   }
 };
+
+export const getReservationByStationId = async (id: string) => {
+  try {
+    const { data } = await axios.get("http://localhost:3000/api/stationbysquare/"+id);
+    return data;
+  } catch (error) {
+    console.error("Error al obtener las reservas por estación:", error);
+  }
+} 

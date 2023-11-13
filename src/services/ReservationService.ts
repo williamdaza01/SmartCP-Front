@@ -12,7 +12,7 @@ export const createReservation = async (reservationData: Reservation) => {
 
 export const getReservations = async () => {
   try {
-    const { data } = await axios.get("/reservations");
+    const { data } = await axios.get("http://localhost:3000/api/reservations");
     return data;
   } catch (error) {
     console.error("Error al obtener las reservas:", error);
@@ -42,8 +42,9 @@ export const updateReservation = async (
 
 export const deleteReservation = async (id: string) => {
   try {
-    const { data } = await axios.delete(`/reservation/${id}`);
-    return data;
+    const response = await axios.delete(`http://localhost:3000/api/reservation/${id}`);
+    console.log("🚀 ~ file: ReservationService.ts:47 ~ deleteReservation ~ response:", response)
+    return response;
   } catch (error) {
     console.error("Error al eliminar una reserva:", error);
   }

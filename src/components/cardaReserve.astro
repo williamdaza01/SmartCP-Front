@@ -1,0 +1,87 @@
+---
+import { deleteReservation, getReservations } from "../services/ReservationService";
+import { Reservation } from "../types/ReservationTypes";
+import { User } from "../types/UserTypes";
+import { getReservationByStationId } from "../services/StationService";
+import { Square } from "../types/SquareTypes";
+import Modal from "./modal.astro";
+import { getUserByEmail } from "../services/UserService";
+
+interface Props {
+  onDelete?: () => {};
+  onEdit?: () => {};
+  isActive?: boolean;
+}
+
+const { onDelete, onEdit, isActive } = Astro.props;
+const user = await getUserByEmail(Astro.cookies.get('id_user')?.value ?? '')
+
+const reservations = await getReservations();
+
+const deleteCard = async (id:string) => {
+    if(Astro.request.method === 'POST'){
+        await deleteReservation(id)   
+    }
+}
+
+
+---
+
+{
+  reservations.map(async (resv: Reservation) => {
+    const date = `${new Date(resv.reservation_date).getDay()}/${new Date(
+      resv.reservation_date
+    ).getMonth()}/${new Date(resv.reservation_date).getFullYear()}`;
+    const time = `${new Date(resv.reservation_date).toLocaleTimeString()}`;
+    const station = await getReservationByStationId(resv.id_square);
+    const bgArr = [
+      "bg-fuchsia-700",
+      "bg-teal-500",
+      "bg-sky-500",
+      "bg-pink-500",
+    ];
+    const randomIndex = Math.floor(Math.random() * bgArr.length);
+    const randomBg = bgArr[randomIndex];
+    const classBg = `max-w-sm overflow-hidden shadow-lg ${randomBg} rounded-2xl`;
+    return (
+      <div class={classBg} >
+        <div class="px-16 py-16 flex flex-col justify-center items-center gap-2">
+          <div class="font-extrabold mb-2 text-4xl text-white">
+            Plaza {station[0].name_station}
+          </div>
+          {station[0].squares.map((square: Square, index: number) => {
+            if (square._id === resv.id_square) {
+              return (
+                <span class="text-white text-2xl font-semibold">
+                  Modulo {index+1}
+                </span>
+              );
+            }
+          })}
+          <span class="text-white text-2xl font-semibold">{date}</span>
+          <span class="text-white text-2xl font-semibold">{time}</span>
+        </div>
+        {isActive && (
+          <div class="flex justify-end gap-2 m-3">
+            <form method="POST" onsubmit=`${deleteCard(resv._id??"")}`>
+              <button
+                class="bg-red-500 text-white px-4 py-2 rounded-full"
+              >
+                Eliminar
+              </button>
+              <Modal
+              id="dialog"
+                station={station[0]}
+                user={user}
+              >
+              <p class="bg-blue-500 text-white px-4 py-2 rounded-full">
+                Editar
+                </p>
+              </Modal>
+            </form>
+          </div>
+        )}
+      </div>
+    );
+  })
+}
