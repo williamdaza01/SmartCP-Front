@@ -1,12 +1,12 @@
 import axios from "axios";
 import type { User } from "../types/UserTypes";
+ 
 
 export const createUser = async (userData: User) => {
   try {
-    const { data } = await axios.post("http://localhost:3000/api/user", userData);
+    const { data } = await axios.post(import.meta.env.PUBLIC_URLPROD+"/user", userData);
     return data;
   } catch (error: any) {
-    console.log("🚀 ~ file: UserService.ts:10 ~ createUser ~ error:", error)
     return {
       status: error.status,
       message: error
@@ -16,7 +16,7 @@ export const createUser = async (userData: User) => {
 
 export const updateUser = async (userData: User) => {
   try {
-    const { data } = await axios.put(`/user/${userData.id}`, userData);
+    const { data } = await axios.put(import.meta.env.PUBLIC_URLPROD+`/user/${userData._id}`, userData);
     return data;
   } catch (error: any) {
     console.error("Error al editar un usuario:", error);
@@ -25,7 +25,7 @@ export const updateUser = async (userData: User) => {
 
 export const deleteUser = async (id: string) => {
   try {
-    const { data } = await axios.delete(`/user/${id}`);
+    const { data } = await axios.delete(import.meta.env.PUBLIC_URLPROD+`/user/${id}`);
     return data;
   } catch (error: any) {
     console.error("Error al editar un usuario:", error);
@@ -34,7 +34,7 @@ export const deleteUser = async (id: string) => {
 
 export const getUsers = async () => {
   try {
-    const { data } = await axios.get("/user");
+    const { data } = await axios.get(import.meta.env.PUBLIC_URLPROD+"/users");
     return data;
   } catch (error: any) {
     console.error("Error al obtener usuarios:", error);
@@ -43,8 +43,8 @@ export const getUsers = async () => {
 
 export const getUser = async (id: string) => {
   try {
-    const { data } = await axios.get(`/user/${id}`);
-    return data;
+    const { data } = await axios.get(import.meta.env.PUBLIC_URLPROD+`/user/${id}`);
+    return data as User;
   } catch (error: any) {
     console.error("Error al obtener un usuario:", error);
   }
@@ -52,7 +52,7 @@ export const getUser = async (id: string) => {
 
 export const authUser = async (userData: User) => {
   try {
-    const { data } = await axios.post("http://localhost:3000/api/login/", userData);
+    const { data } = await axios.post(import.meta.env.PUBLIC_URLPROD+"/login/", userData);
     return data;
   } catch (error: any) {
     console.error("Error al autenticar un usuario:", error);
@@ -61,7 +61,7 @@ export const authUser = async (userData: User) => {
 
 export const getUserByEmail = async (email: string) => {
   try {
-    const { data } = await axios.get("http://localhost:3000/api/userbyemail/"+email);
+    const { data } = await axios.get(import.meta.env.PUBLIC_URLPROD+"/userbyemail/"+email);
     return data;
   } catch (error) {
     

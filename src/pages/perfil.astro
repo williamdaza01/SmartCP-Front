@@ -1,0 +1,79 @@
+---
+import LayoutUser from "../layouts/LayoutUser.astro"
+import { getUserByEmail } from "../services/UserService";
+
+if(Astro.cookies.get('id_user')?.value === undefined){
+  return Astro.redirect('/login')
+}
+
+const user = await getUserByEmail(Astro.cookies.get('id_user')?.value ?? '')
+---
+
+<LayoutUser>
+    <div class="flex justify-evenly m-4">
+        <div>
+            <img
+                class="inline-block h-auto w-full rounded-full ring-2 ring-white my-2"
+                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt=""
+              />
+        </div>
+        <div>
+            <h1 class="text-6xl pb-3 font-bold text-white">Perfil</h1>
+            <div class="flex items-center justify-center">
+                <hr class="rounded-xl bg-slate-400 w-full">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-10 h-10 text-black bg-pink-500 rounded-lg cursor-pointer"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+            </div>
+            <div class="grid grid-cols-2">
+                <div class="grid col-auto gap-8 grid-rows-3 py-8">
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">Nombres</h2>
+                        <span class="text-xl text-yellow-50">{user?.name}</span>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">Apellidos</h2>
+                        <span class="text-xl text-yellow-50">{user?.lastname}</span>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">Correo</h2>
+                        <span class="text-xl text-yellow-50">{user?.email}</span>
+                    </div>                   
+                </div>
+                <div class="grid col-auto gap-8 grid-rows-3 justify-between py-8">
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">Tipo de documento</h2>
+                        <span class="text-xl text-yellow-50">{user?.type}</span>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">Documento</h2>
+                        <span class="text-xl text-yellow-50">{user?.doc}</span>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-semibold text-white">ID</h2>
+                        <span class="text-xl text-yellow-50">{user?._id}</span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-6xl pb-3 font-bold text-white">Ajustes</h1>
+            <hr class="rounded-xl bg-slate-400 w-full">
+            <div>
+                <div class="flex items-baseline py-8">
+                    <a class="text-4xl font-semibold text-orange-400 cursor-pointer">Cambiar Contraseña</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</LayoutUser>

@@ -1,5 +1,5 @@
 export interface User {
-    id?: String;
+    _id?: String;
     type?:String;
     doc?: String;
     name?: String;

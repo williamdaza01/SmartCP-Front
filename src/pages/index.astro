@@ -1,6 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Logo from "../Icons/logo.astro";
+import { getSquares } from "../services/SquareService";
+
+if(Astro.cookies.get('id_user')?.value !== undefined){
+  return Astro.redirect('/home')
+}
+
+const squares = await getSquares()
 ---
 
 <Layout>
@@ -18,7 +24,7 @@ import Logo from "../Icons/logo.astro";
     <div
       class="sq_cout bg-violet-300 bg-opacity-50 p-11 rounded mb-16 lg:ml-16"
     >
-      <h2 class="text-7xl">34</h2>
+      <h2 class="text-7xl">{squares.length}</h2>
       <h3 class="sq_cout_tx text-5xl mt-4">Plazas disponibles</h3>
     </div>
   </section>

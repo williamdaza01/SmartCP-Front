@@ -3,6 +3,9 @@ import LayoutUser from "../layouts/LayoutUser.astro";
 import CardaReserve from "../components/cardaReserve.astro";
 import { getIsActive, setIsActive } from "../utils/state"
 
+if(Astro.cookies.get('id_user')?.value === undefined){
+  return Astro.redirect('/login')
+}
 
 const toogleActive = () =>{
     const isActive = getIsActive();

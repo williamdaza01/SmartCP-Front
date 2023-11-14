@@ -3,7 +3,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { createRoot } from "react-dom/client";
 import type { Station } from "../types/StationTypes";
 import { getStations } from "../services/StationService";
-
+ 
 
 const render = (status: Status): ReactElement => {
   if (status === Status.LOADING) return <h3>{status} ..</h3>;
@@ -76,7 +76,7 @@ export function MapCont() {
 
   return (
     <Wrapper
-      apiKey="AIzaSyDIfkWx9pO5LMJB_4PuNUiHW74BtvNa82k"
+      apiKey={import.meta.env.PUBLIC_KEY ?? ''}
       render={render}
       libraries={["marker"]}
     >
