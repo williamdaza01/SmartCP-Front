@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+Astro.cookies.delete("id_user");
+---
+
+<Layout>
+  <div class="flex items-center justify-center">
+    <div
+      class="bg-fuchsia-700 rounded-3xl border-8 border-white flex flex-col items-center justify-center self-center gap-16 p-16 h-auto"
+    >
+      <h1 class="text-7xl text-orange-400 mb-8">Sesion cerrada con exito</h1>
+      <a href="/" class="bg-teal-500 rounded-2xl hover:bg-teal-600 p-10"
+        ><span
+          class="text-center text-slate-900 text-5xl"
+          >Ir a la pagina principal</span
+        ></a
+      >
+    </div>
+  </div>
+</Layout>
+
+<style>
+  body {
+    background-image: url("/Images/bgc.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>

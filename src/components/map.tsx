@@ -6,8 +6,8 @@ import { getStations } from "../services/StationService";
  
 
 const render = (status: Status): ReactElement => {
-  if (status === Status.LOADING) return <h3>{status} ..</h3>;
-  if (status === Status.FAILURE) return <h3>{status} ...</h3>;
+  if (status === Status.LOADING) return <h3 className="text-rose-600 text-4xl font-extrabold">{status} ..</h3>;
+  if (status === Status.FAILURE) return <h3 className="text-rose-600 text-4xl font-extrabold">{status} ...</h3>;
   return <></>;
 };
 

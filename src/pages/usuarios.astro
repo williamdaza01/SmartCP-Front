@@ -18,12 +18,20 @@ const deleteUserId = async (id: string) =>{
 
 <LayoutUser>
   <div class="flex flex-col items-center gap-16">
-    <div>
+    <div class=" flex flex-row w-full items-center justify-around">
+      <a href="/admin" class="bg-fuchsia-700 rounded-full text-white p-2 hover:bg-fuchsia-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+      </a>
       <h1
         class="bg-teal-500 text-black font-extrabold rounded-full p-3 text-5xl px-10"
       >
         Usuarios
       </h1>
+      <a href="/reservas" class="bg-fuchsia-700 rounded-full text-white p-2 hover:bg-fuchsia-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+      </a>
     </div>
     <div>
       <table class="table-auto bg-white rounded-lg">
