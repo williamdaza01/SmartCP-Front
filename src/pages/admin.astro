@@ -1,0 +1,49 @@
+---
+import LayoutUser from "../layouts/LayoutUser.astro";
+if(Astro.cookies.get('id_user')?.value === undefined){
+  return Astro.redirect('/login')
+}
+---
+
+<LayoutUser>
+  <div class="flex flex-col gap-10">
+    <div class="self-center">
+      <h1
+        class="bg-sky-400 text-black font-extrabold rounded-full p-3 text-5xl px-10"
+      >
+        Administrador
+      </h1>
+    </div>
+    <div class="flex justify-around">
+      <div class="bg-teal-500 max-w-sm overflow-hidden shadow-lg rounded-2xl w-1/3 flex justify-center items-center flex-col">
+        <a
+          href="/usuarios"
+          class="px-16 py-16 flex flex-col justify-center items-center gap-2"
+        >
+          <img src="/Images/user.svg" alt="" />
+          <span class="text-3xl font-bold ">Usuarios</span>
+        </a>
+      </div>
+
+      <div class="bg-pink-500 max-w-sm overflow-hidden shadow-lg rounded-2xl w-1/3 flex justify-center items-center flex-col">
+        <a
+          href="/reservas"
+          class="px-16 py-16 flex flex-col justify-center items-center gap-2"
+        >
+          <img src="/Images/reser.svg" alt="" />
+          <span class="text-3xl font-bold ">Reservas</span>
+        </a>
+      </div>
+
+      <div class="bg-orange-400 max-w-sm overflow-hidden shadow-lg rounded-2xl w-1/3 flex justify-center items-center flex-col">
+        <a
+          href="/estaciones"
+          class="px-16 py-16 flex flex-col justify-center items-center gap-2"
+        >
+          <img src="/Images/stations.svg" alt="" />
+          <span class="text-3xl font-bold ">Estaciones</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</LayoutUser>

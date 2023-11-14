@@ -10,5 +10,20 @@ export default defineConfig({
   adapter: nodejs({
     mode: 'standalone'
   }),
-  integrations: [tailwind(), react()]
+  integrations: [tailwind(), react()],
+  
+    middleware: [
+      (req, res, next) => {
+        console.log("🚀 ~ file: astro.config.mjs:17 ~ req:", req)
+        const userCookie = req.cookies.id_user;
+  
+        if (!userCookie) {
+          res.redirect('/login');
+          return;
+        }
+  
+        next();
+      },
+    ],
+  
 });

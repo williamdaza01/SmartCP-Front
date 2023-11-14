@@ -1,6 +1,7 @@
 ---
 import LayoutUser from "../layouts/LayoutUser.astro";
 import * as nodemailer from 'nodemailer';
+ 
 
 if (Astro.request.method === "POST") {
 
@@ -12,8 +13,8 @@ const name = data.get("name")?.toString() ?? '';
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'williamdaza04@gmail.com',
-    pass: 'olba phyh fbot qfni',
+    user: import.meta.env.PUBLIC_EMAIL,
+    pass: import.meta.env.PUBLIC_EMAIL_PASS,
   },
 });
 

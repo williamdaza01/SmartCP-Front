@@ -4,6 +4,9 @@ import CardStation from "../components/cardStation.astro";
 import { getStations } from "../services/StationService";
 import { MapCont } from "../components/map";
 
+if(Astro.cookies.get('id_user')?.value === undefined){
+  return Astro.redirect('/login')
+}
 const stations = await getStations();
 ---
 

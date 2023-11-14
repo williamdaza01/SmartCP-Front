@@ -1,18 +1,19 @@
 import axios from "axios";
 import type { Reservation } from "../types/ReservationTypes";
+ 
 
 export const createReservation = async (reservationData: Reservation) => {
   try {
-    const { data } = await axios.post("http://localhost:3000/api/reservation", reservationData);
+    const { data } = await axios.post(import.meta.env.PUBLIC_URLPROD+"/reservation", reservationData);
     return data;
   } catch (error) {
-    //console.error("Error al crear una reserva:", error);
+    console.error("Error al crear una reserva:", error);
   }
 };
 
 export const getReservations = async () => {
   try {
-    const { data } = await axios.get("http://localhost:3000/api/reservations");
+    const { data } = await axios.get(import.meta.env.PUBLIC_URLPROD+"/reservations");
     return data;
   } catch (error) {
     console.error("Error al obtener las reservas:", error);
@@ -21,7 +22,7 @@ export const getReservations = async () => {
 
 export const getReservation = async (id: string) => {
   try {
-    const { data } = await axios.get(`/reservations/${id}`);
+    const { data } = await axios.get(import.meta.env.PUBLIC_URLPROD+`/reservations/${id}`);
     return data;
   } catch (error) {
     console.error("Error al obtener una reserva:", error);
@@ -33,7 +34,7 @@ export const updateReservation = async (
   reservationData: Reservation
 ) => {
   try {
-    const { data } = await axios.put(`/reservation/${id}`, reservationData);
+    const { data } = await axios.put(import.meta.env.PUBLIC_URLPROD+`/reservation/${id}`, reservationData);
     return data;
   } catch (error) {
     console.error("Error al actualizar una reserva:", error);
@@ -42,8 +43,7 @@ export const updateReservation = async (
 
 export const deleteReservation = async (id: string) => {
   try {
-    const response = await axios.delete(`http://localhost:3000/api/reservation/${id}`);
-    console.log("🚀 ~ file: ReservationService.ts:47 ~ deleteReservation ~ response:", response)
+    const response = await axios.delete(import.meta.env.PUBLIC_URLPROD+`/reservation/${id}`);
     return response;
   } catch (error) {
     console.error("Error al eliminar una reserva:", error);
