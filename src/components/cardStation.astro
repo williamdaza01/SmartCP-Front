@@ -22,7 +22,7 @@ const { stations } = Astro.props;
       Haga clic en cualquier plaza o ubicación para reservar
     </p></div
   >
-  <div>
+  <div class="py-3">
     {
       stations.map((station: Station) => {
         return <BtnSquare station={station} />;
