@@ -8,12 +8,10 @@ import Modal from "./modal.astro";
 import { getUserByEmail } from "../services/UserService";
 
 interface Props {
-  onDelete?: () => {};
-  onEdit?: () => {};
   isActive?: boolean;
 }
 
-const { onDelete, onEdit, isActive } = Astro.props;
+const { isActive } = Astro.props;
 const user = await getUserByEmail(Astro.cookies.get('id_user')?.value ?? '')
 
 const reservations = await getReservations();
