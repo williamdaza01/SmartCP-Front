@@ -13,6 +13,7 @@
     "@astrojs/node": "^6.0.1",
     "@astrojs/react": "^3.0.2",
     "@astrojs/tailwind": "^5.0.0",
+    "@astrojs/vercel": "^5.2.0",
     "@googlemaps/js-api-loader": "^1.16.2",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@heroicons/react": "^2.0.18",
