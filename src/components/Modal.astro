@@ -9,7 +9,7 @@ interface Props {
   user: string;
 }
 
-const { id, station, user } = Astro.props;
+const { station, user } = Astro.props;
 
 if (Astro.request.method === "POST") {
   const dataForm = await Astro.request.formData();
